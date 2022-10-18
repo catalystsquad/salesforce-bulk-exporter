@@ -5,17 +5,12 @@ on:
       - closed
     branches:
       - main
-    paths:
-      - 'cmd/**'
-      - 'internal/**'
-      - Dockerfile
-      - 'go.mod'
-      - 'go.sum'
 jobs:
   release:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-    name: Release and update helm chart
+    name: Release
     steps:
-      - uses: catalystsquad/action-release-update-chart@v1
+      - uses: catalystsquad/action-semantic-release-general@v1
         with:
           token: ${{ secrets.AUTOMATION_PAT }}
